@@ -7,10 +7,11 @@ class Images {
   static const String linkedIn = "images/linkedin1.png";
   static const String github = "images/github.png";
 
-  static const String bellOutlined = "images/bell-outlined.png";
-  static const String bellFilled = "images/bell-filled.png";
-  static const String searchFilled = "images/search-filled.png";
-  static const String searchOutlined = "images/search-outlined.png";
+  static const String design = "images/design.png";
+  static const String develop = "images/develop.png";
+  static const String maintenance = "images/maintenance.png";
+  static const String publish = "images/publish.png";
+
   static const String save = "images/save-icon.png";
   static const String storage = "images/data-storage.png";
   static const String homeFilled = "images/home-filled.png";

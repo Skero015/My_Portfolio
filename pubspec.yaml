@@ -48,9 +48,12 @@ dev_dependencies:
   # Main packages.
   sizer:
   animated_text_kit: ^4.2.1
+  auto_animated:
+  charts_flutter:
 
   # Google Packages.
   google_fonts: 2.2.0
+  scrollable_positioned_list:
 
   # Animation packages.
 

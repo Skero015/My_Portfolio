@@ -7,6 +7,8 @@ class AppThemeWeb {
 
   //app colors
   static const Color appBackgroundColor = Color(0xFFFFFFFF);
+  static const Color mainColor = Color(0xFFE8DED1);
+  static const Color secondaryColor = Color(0xFFFAF0E6);
   static const Color mainColorRed = Color(0xFFB62D1D);
   static const Color mainColorRedLight = Color(0xFFB62D1D);
   static const Color secondaryColorPeach = Color(0xFFDE9B8C);
@@ -32,6 +34,14 @@ class AppThemeWeb {
     letterSpacing: 1.1,
     fontWeight: FontWeight.bold,
   );
+  static final TextStyle heading = GoogleFonts.montserrat(
+    fontSize: 30,
+    color: Colors.black.withOpacity(0.8),
+    height: 1.2,
+    wordSpacing: 1.1,
+    letterSpacing: 1.2,
+    fontWeight: FontWeight.bold,
+  );
   static final TextStyle subheading = GoogleFonts.montserrat(
     fontSize: 20,
     color: Colors.black.withOpacity(0.8),
@@ -47,6 +57,13 @@ class AppThemeWeb {
     letterSpacing: 1.03,
     fontWeight: FontWeight.w300,
   );
+  static final TextStyle regularTextHovered = GoogleFonts.poppins(
+    fontSize: 16,
+    color: Colors.blue,
+    letterSpacing: 1.03,
+    fontWeight: FontWeight.w300,
+  );
+
   static final TextStyle regularTextBold = GoogleFonts.poppins(
     fontSize: 16,
     color: regularTextColor,
@@ -64,5 +81,12 @@ class AppThemeWeb {
     color: appBackgroundColor,
     letterSpacing: 1.1,
     fontWeight: FontWeight.bold,
+  );
+
+  static final TextStyle regularTextLight = GoogleFonts.poppins(
+    fontSize: 14,
+    color: regularTextColor,
+    letterSpacing: 1.03,
+    fontWeight: FontWeight.w200,
   );
 }
