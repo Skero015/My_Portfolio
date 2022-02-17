@@ -8,9 +8,12 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:portfolio_webapp/widgets/horizontal_chart.dart';
 import 'package:portfolio_webapp/widgets/pie_chart.dart';
 import 'package:auto_animated/auto_animated.dart';
+import 'package:portfolio_webapp/widgets/skills_container.dart';
 
 class Resume extends StatelessWidget {
   const Resume({Key? key}) : super(key: key);
+
+  final elevation = 3.0;
 
   _getLanguageSeriesData() {
     List<charts.Series<Skill, String>> series = [
@@ -57,13 +60,53 @@ class Resume extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Container(
+        return AnimateIfVisibleWrapper(
+          // Show each item through (default 250)
+          showItemInterval: const Duration(milliseconds: 150),
           child: Column(
             children: [
+              const SizedBox(height: 60,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.person_outline, size: 30, color: Colors.blue,),
+                  const SizedBox(width: 15,),
+                  Text('ABOUT ME', style: AppThemeWeb.heading, overflow: TextOverflow.clip,),
+                ],
+              ),
+              const SizedBox(height: 40,),
+              AnimateIfVisible(
+                key: Key('item.1'),
+                duration: const Duration(milliseconds: 500),
+                builder: (BuildContext context, Animation<double> animation) {
+                  return FadeTransition(
+                    opacity: Tween<double>(
+                      begin: 0,
+                      end: 1,
+                    ).animate(animation),
+                    child: Container(
+                      width: constraints.maxWidth / 1.3,
+                      color: AppThemeWeb.mainColor,
+                      child: Padding(
+                        padding: const EdgeInsets.all(30.0),
+                        child: Material(
+                          elevation: 5.0,
+                          child: Container(
+                              padding: const EdgeInsets.all(30.0),
+                              color: AppThemeWeb.secondaryColor,
+                              child: Text(Constants.intro, style: AppThemeWeb.regularTextLight, overflow: TextOverflow.clip,)
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 60,),
               SizedBox(
                 height: 250,
                 width: constraints.maxWidth,
-                child: LiveList.options(
+                child: LiveList.options(// change to LiveGrid
                   options: const LiveOptions(
                     delay: Duration(milliseconds: 500),
                     showItemInterval: Duration(milliseconds: 500),
@@ -84,7 +127,7 @@ class Resume extends StatelessWidget {
                       // And slide transition
                       child: SlideTransition(
                         position: Tween<Offset>(
-                          begin: Offset(0, -0.1),
+                          begin: const Offset(0, -0.1),
                           end: Offset.zero,
                         ).animate(animation),
                         // Paste you Widget
@@ -95,29 +138,109 @@ class Resume extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40,),
-              SizedBox(
-                height: 1200,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(// container on the right
+                    color: Colors.white,
+                    height: 500,
+                    width: constraints.maxWidth / 3.1,
+                    child: Stack(// stack with two containers stacked on each other
+                      children: [
+                        Container(
+                          color: const Color(0xFFE8DED1),
+                          height: 500,
+                          width: 480,
+                        ),
+                        const SkillsContainer(),
+                      ],
+                    ),
+                  ),
+                  pieChart(_getFrameworkSeriesData),
+                  Container(// container on the right
+                    color: Colors.white,
+                    height: 500,
+                    width: constraints.maxWidth / 3.1,
+                    child: Stack(// stack with two containers stacked on each other
+                      children: [
+                        Container(
+                          color: const Color(0xFFE8DED1),
+                          height: 500,
+                          width: 480,
+                        ),
+                        const SkillsContainer(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              /*SizedBox(
+                height: 600,
                 width: constraints.maxWidth,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40.0),
                   child: Stack(
                     children: [
-                      Stack(
-                        children: [
-                          Container(
-                            color: AppThemeWeb.mainColor,
-                            height: 300,
-                            width: 300,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 30.0),
-                            child: horizontalChart(_getLanguageSeriesData),
-                          ),
-                        ],
+                      Positioned(
+                        top: 0,
+                        left: constraints.maxWidth / 10.5,
+                        bottom: 0,
+                        child: Stack(
+                          children: [
+                            AnimatedContainer(
+                              height: 303,
+                              width: 450,
+                              duration: const Duration(milliseconds: 0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.0),
+                                color: Colors.grey.shade50,
+                                shape: BoxShape.rectangle,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.shade200,
+                                      spreadRadius: 0.0,
+                                      blurRadius: elevation,
+                                      offset: const Offset(3.0, 3.0)),
+                                  BoxShadow(
+                                      color: Colors.grey.shade200,
+                                      spreadRadius: 0.0,
+                                      blurRadius: elevation / 2.0,
+                                      offset: const Offset(3.0, 3.0)),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      spreadRadius: 2.0,
+                                      blurRadius: elevation,
+                                      offset: const Offset(-3.0, -3.0)),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      spreadRadius: 2.0,
+                                      blurRadius: elevation / 2,
+                                      offset: const Offset(-3.0, -3.0)),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 30.0),
+                              child: horizontalChart(_getLanguageSeriesData),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        top: 50,
+                        left: constraints.maxWidth / 2.30,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.settings_applications, size: 30, color: Colors.blue,),
+                            const SizedBox(width: 15,),
+                            Text('SKILLS', style: AppThemeWeb.heading, overflow: TextOverflow.clip,),
+                          ],
+                        ),
                       ),
                       Positioned(
                         top: 200,
-                        left: constraints.maxWidth / 2.5,
+                        left: constraints.maxWidth / 2.30,
                         right: 0,
                         bottom: 0,
                         child: Stack(
@@ -146,10 +269,37 @@ class Resume extends StatelessWidget {
                         bottom: 0,
                         child: Stack(
                           children: [
-                            Container(
-                              color: AppThemeWeb.mainColor,
-                              height: 300,
-                              width: 320,
+                            AnimatedContainer(
+                              height: 303,
+                              width: 450,
+                              duration: const Duration(milliseconds: 0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.0),
+                                color: Colors.grey.shade50,
+                                shape: BoxShape.rectangle,
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.grey.shade200,
+                                      spreadRadius: 0.0,
+                                      blurRadius: elevation,
+                                      offset: const Offset(3.0, 3.0)),
+                                  BoxShadow(
+                                      color: Colors.grey.shade200,
+                                      spreadRadius: 0.0,
+                                      blurRadius: elevation / 2.0,
+                                      offset: const Offset(3.0, 3.0)),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      spreadRadius: 2.0,
+                                      blurRadius: elevation,
+                                      offset: const Offset(-3.0, -3.0)),
+                                  BoxShadow(
+                                      color: Colors.white,
+                                      spreadRadius: 2.0,
+                                      blurRadius: elevation / 2,
+                                      offset: const Offset(-3.0, -3.0)),
+                                ],
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 30.0),
@@ -161,7 +311,8 @@ class Resume extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
+              ),*/
+              const SizedBox(height: 60,),
             ],
           ),
         );

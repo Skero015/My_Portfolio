@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
                   ),
                   home: ResponsiveLayout(
                     desktop: HomePageDesktop(),
+                    tablet: HomePageDesktop(),
                   ),
                 );
               }

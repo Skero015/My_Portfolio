@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:portfolio_webapp/utils/styleguide_web.dart';
+import 'package:portfolio_webapp/utils/validators.dart';
+import 'package:portfolio_webapp/widgets/custom_button.dart';
 
 class ContactMe extends StatefulWidget {
   const ContactMe({Key? key}) : super(key: key);
@@ -23,70 +25,142 @@ class _ContactMeState extends State<ContactMe> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (context, constraints) {
-        return Container(
-          height: 700,
-          width: constraints.maxWidth,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          color: AppThemeWeb.secondaryColor,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.call, size: 30, color: Colors.blue,),
-                  const SizedBox(width: 15,),
-                  Text('CONTACT ME', style: AppThemeWeb.heading, overflow: TextOverflow.clip,),
-                ],
-              ),
-              const SizedBox(width: 30,),
-              Form(
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.call, size: 30, color: Colors.blue,),
+                const SizedBox(width: 15,),
+                Text('CONTACT ME', style: AppThemeWeb.heading, overflow: TextOverflow.clip,),
+              ],
+            ),
+            const SizedBox(height: 30,),
+            Container(
+              height: 700,
+              width: constraints.maxWidth / 2,
+              padding: const EdgeInsets.symmetric(horizontal: 100),
+              color: AppThemeWeb.secondaryColor,
+              child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
-
-                    Row(
+                    const SizedBox(height: 50,),
+                    constraints.maxWidth < 800 ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        TextFormField(
-                          controller: _name,
-                          decoration: const InputDecoration(
-                            hintText: 'First name',
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
+                        SizedBox(
+                          width: constraints.maxWidth / 10,
+                          child: TextFormField(
+                            controller: _name,
+                            decoration: const InputDecoration(
+                              hintText: 'First name *',
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
                             ),
+                            validator: Validators.validateName,
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
                         ),
                         const SizedBox(width: 30,),
-                        TextFormField(
-                          // The validator receives the text that the user has entered.
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
+                        SizedBox(
+                          width: constraints.maxWidth / 10,
+                          child: TextFormField(
+                            controller: _surname,
+                            decoration: const InputDecoration(
+                              hintText: 'Last name *',
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                            validator: Validators.validateName,
+                          ),
+                        ),
+                      ],
+                    ) : Column(
+                      children: [
+                        SizedBox(
+                          width: constraints.maxWidth/ 2,
+                          child: TextFormField(
+                            controller: _name,
+                            decoration: const InputDecoration(
+                              hintText: 'First name *',
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                            validator: Validators.validateName,
+                          ),
+                        ),
+                        const SizedBox(width: 50,),
+                        SizedBox(
+                          width: constraints.maxWidth / 2,
+                          child: TextFormField(
+                            controller: _surname,
+                            decoration: const InputDecoration(
+                              hintText: 'Last name *',
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
+                            ),
+                            validator: Validators.validateName,
+                          ),
                         ),
                       ],
                     ),
+                    const SizedBox(height: 50,),
                     TextFormField(
-                      // The validator receives the text that the user has entered.
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                      controller: _email,
+                      decoration: const InputDecoration(
+                        hintText: 'Email *',
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      validator: Validators.validateEmail,
+                    ),
+                    const SizedBox(height: 50,),
+                    TextFormField(
+                      controller: _subject,
+                      decoration: const InputDecoration(
+                        hintText: 'Subject',
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      validator: Validators.validateField,
+                    ),
+                    const SizedBox(height: 50,),
+                    TextFormField(
+                      controller: _message,
+                      decoration: const InputDecoration(
+                        hintText: 'Message',
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                        ),
+                      ),
+                      validator: Validators.validateField,
+                    ),
+                    const SizedBox(height: 50,),
+                    CustomButton(
+                      onPressed: () {
+
+                        if(!_formKey.currentState!.validate()) {
+
+                        }else{
+
                         }
-                        return null;
-                      },
+
+                    },
+                      buttonText: 'Send',
+                      shadowColor: MaterialStateProperty.all<Color>(Colors.black87),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 30,),
+          ],
         );
       }
     );

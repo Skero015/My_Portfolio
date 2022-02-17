@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 Widget pieChart (dynamic Function() _getFrameworkSeriesData) {
   return SizedBox(
-    height: 280,
-    width: 350,
+    height: 270,
+    width: 320,
     child: charts.PieChart(
       _getFrameworkSeriesData(),
       animate: true,

@@ -12,11 +12,13 @@ class Images {
   static const String maintenance = "images/maintenance.png";
   static const String publish = "images/publish.png";
 
-  static const String save = "images/save-icon.png";
-  static const String storage = "images/data-storage.png";
-  static const String homeFilled = "images/home-filled.png";
-  static const String homeOutlined = "images/home-outlined.png";
-  static const String userFilled = "images/user-filled.png";
+  static const String background1 = "images/artistic1.png";
+  static const String background2 = "images/artistic2.png";
+
+  static const String stallet = "images/stallet.png";
+  static const String hooch = "images/hooch.png";
+  static const String cut = "images/cut.png";
+
   static const String userOutlined = "images/user-outlined.png";
   static const String checkMark = "images/checkmark-in-circle.png";
 
